@@ -12,6 +12,8 @@ This script loops through a community in DSpace to produce a CSV with all of the
 
 This script uses a CSV to add bitstreams to a previously existing item in DSpace through the API. The CSV contains three columns: newfile, itemID, and localFileLocation.
 
+| Column Name       | Description                                                      |
+|-------------------|------------------------------------------------------------------|
 | newfile           |The filename, with extension, of the bitstream to add to the item |
 | itemID            |The link to the item where you would like to add the bitstream    |
 | localFileLocation |The full path to the bitstream's location on your device          |   
