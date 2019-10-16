@@ -60,15 +60,14 @@ with open(filename) as bitstreamsCSV:
         bitstream = row['localFileLocation']
         data = open(bitstream, 'rb')
 
-        bitstreams = requests.get(baseURL+itemID+'/bitstreams', headers=header, cookies=cookies, verify=verify).json()
+        bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=200', headers=header, cookies=cookies, verify=verify).json()
         initialBitstreams = len(bitstreams)
-        print('{} initial bitstreams'.format(initialBitstreams))
 
         post = requests.post(baseURL+itemID+'/bitstreams?name='+fileName, headers=headerFileUpload, cookies=cookies, verify=verify, data=data).json()
         link = post['link']
         print('Added {} for item'.format(link))
 
-        bitstreams = requests.get(baseURL+itemID+'/bitstreams', headers=header, cookies=cookies, verify=verify).json()
+        bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=200', headers=header, cookies=cookies, verify=verify).json()
         totalBitstreams = len(bitstreams)
         addedBitstreams = totalBitstreams - initialBitstreams
         print('{} total bitstreams, {} added'.format(totalBitstreams, addedBitstreams))
