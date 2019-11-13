@@ -7,7 +7,6 @@ import csv
 import urllib3
 import argparse
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--file', help='collectionHandle of the collection to retreive. optional - if not provided, the script will ask for input')
 args = parser.parse_args()
@@ -48,9 +47,7 @@ status = requests.get(baseURL+'/rest/status', headers=header, cookies=cookies, v
 userFullName = status['fullname']
 print('authenticated')
 
-
 f = csv.writer(open(filePath+'ingestedBitstreams'+datetime.now().strftime('%Y-%m-%d %H.%M.%S')+'.csv', 'w'))
-
 
 with open(filename) as bitstreamsCSV:
     bitstreamsCSV = csv.DictReader(bitstreamsCSV)
@@ -60,21 +57,24 @@ with open(filename) as bitstreamsCSV:
         bitstream = row['localFileLocation']
         data = open(bitstream, 'rb')
 
-        bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=200', headers=header, cookies=cookies, verify=verify).json()
+        bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=1000', headers=header, cookies=cookies, verify=verify).json()
         initialBitstreams = len(bitstreams)
+        print(bitstreams)
+        print('{} initial bitstreams'.format(initialBitstreams))
 
         post = requests.post(baseURL+itemID+'/bitstreams?name='+fileName, headers=headerFileUpload, cookies=cookies, verify=verify, data=data).json()
+        print(post)
         link = post['link']
         print('Added {} for item'.format(link))
 
-        bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=200', headers=header, cookies=cookies, verify=verify).json()
+        bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=1000', headers=header, cookies=cookies, verify=verify).json()
         totalBitstreams = len(bitstreams)
         addedBitstreams = totalBitstreams - initialBitstreams
         print('{} total bitstreams, {} added'.format(totalBitstreams, addedBitstreams))
 
         # Create provenance notes
         itemMetadataProcessed = []
-        metadata = requests.get(baseURL+str(itemID)+'/metadata', headers=header, cookies=cookies, verify=verify).json()
+        metadata = requests.get(baseURL+str(itemID)+'/metadata?&limit=250', headers=header, cookies=cookies, verify=verify).json()
 
         for l in range(0, len(metadata)):
             metadata[l].pop('schema', None)

@@ -76,7 +76,7 @@ for itemID in itemList:
         if metadata[i]['key'] == 'dc.title':
             title = metadata[i]['value']
 
-    bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=200', headers=header, cookies=cookies, verify=verify).json()
+    bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=1000', headers=header, cookies=cookies, verify=verify).json()
     print(len(bitstreams))
     for bitstream in bitstreams:
         fileName = bitstream['name']
