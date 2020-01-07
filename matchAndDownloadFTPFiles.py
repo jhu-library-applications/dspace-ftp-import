@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-f', '--file', help='collectionHandle of the collection to retreive. optional - if not provided, the script will ask for input')
+parser.add_argument('-f', '--file')
 parser.add_argument('-i', '--importation', help='Do you need to import the files? Enter yes to import.')
 parser.add_argument('-d', '--directory')
 

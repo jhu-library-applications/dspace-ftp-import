@@ -59,11 +59,9 @@ with open(filename) as bitstreamsCSV:
 
         bitstreams = requests.get(baseURL+itemID+'/bitstreams?expand=all&limit=1000', headers=header, cookies=cookies, verify=verify).json()
         initialBitstreams = len(bitstreams)
-        print(bitstreams)
         print('{} initial bitstreams'.format(initialBitstreams))
 
         post = requests.post(baseURL+itemID+'/bitstreams?name='+fileName, headers=headerFileUpload, cookies=cookies, verify=verify, data=data).json()
-        print(post)
         link = post['link']
         print('Added {} for item'.format(link))
 
@@ -74,7 +72,7 @@ with open(filename) as bitstreamsCSV:
 
         # Create provenance notes
         itemMetadataProcessed = []
-        metadata = requests.get(baseURL+str(itemID)+'/metadata?&limit=250', headers=header, cookies=cookies, verify=verify).json()
+        metadata = requests.get(baseURL+str(itemID)+'/metadata?&limit=500', headers=header, cookies=cookies, verify=verify).json()
 
         for l in range(0, len(metadata)):
             metadata[l].pop('schema', None)
@@ -95,7 +93,6 @@ with open(filename) as bitstreamsCSV:
             utcTime = utc.strftime('%Y-%m-%dT%H:%M:%SZ')
             provNoteValue = 'Bitstream '+uploadedFileName+' added by '+userFullName+' ('+email+') on '+utcTime+' (GMT). '+size+' bytes, checkSum: '+checksum+' ('+algorithm+')'
             provNote['value'] = provNoteValue
-            print(provNote)
             itemMetadataProcessed.append(provNote)
             itemMetadataProcessed = json.dumps(itemMetadataProcessed)
             print('updated metadata for', itemID)
