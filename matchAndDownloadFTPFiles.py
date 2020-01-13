@@ -36,13 +36,14 @@ f.writerow(['file']+['filematch'])
 f2 = csv.writer(open('filematching'+datetime.now().strftime('%Y-%m-%d %H.%M.%S')+'.csv', 'w', encoding='utf-8'))
 f2.writerow(['newfile']+['localFileLocation']+['itemID']+['matchingfile']+['title'])
 
-server = 'ftp2.eastview.com'
+# Complete server details below.
+server = 'serverName'
 port = 21
 ftp.connect(server, port)
-username = 'ilu7'
-password = 'SXUU'
+username = 'username'
+password = 'password'
 ftp.login(username, password)
-ftp.cwd('GeoTIFF')
+ftp.cwd('folderName')
 
 fileCount = 0
 
