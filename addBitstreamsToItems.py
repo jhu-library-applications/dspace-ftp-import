@@ -47,7 +47,7 @@ status = requests.get(baseURL+'/rest/status', headers=header, cookies=cookies, v
 userFullName = status['fullname']
 print('authenticated')
 
-f = csv.writer(open(filePath+'ingestedBitstreams'+datetime.now().strftime('%Y-%m-%d %H.%M.%S')+'.csv', 'w'))
+f = csv.writer(open('ingestedBitstreams'+datetime.now().strftime('%Y-%m-%d %H.%M.%S')+'.csv', 'w'))
 
 with open(filename) as bitstreamsCSV:
     bitstreamsCSV = csv.DictReader(bitstreamsCSV)
@@ -62,6 +62,7 @@ with open(filename) as bitstreamsCSV:
         print('{} initial bitstreams'.format(initialBitstreams))
 
         post = requests.post(baseURL+itemID+'/bitstreams?name='+fileName, headers=headerFileUpload, cookies=cookies, verify=verify, data=data).json()
+        print(post)
         link = post['link']
         print('Added {} for item'.format(link))
 
