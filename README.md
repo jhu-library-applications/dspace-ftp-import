@@ -1,6 +1,6 @@
 # dspace-ftp-import
 
-## matchAndDownloadFTPFiles.py
+## downloadAndMatchFTPFiles.py
 
 This script accesses a FTP directory and creates a CSV with all the filenames from that directory. Then it uses the CSV produced by *getItemIdsAndBitstreamsForCommunity.py* to match the filenames from the FTP directory to very similar filenames from the Dspace community. There is also an option to allow you to download the FTP files to a local directory on your device.
 
