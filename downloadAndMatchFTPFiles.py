@@ -27,13 +27,14 @@ else:
     directory = input("Enter the local directory that is currently storing or will store the files.Format like '(C:/Test/):'")
 
 startTime = time.time()
+dt = datetime.now().strftime('%Y-%m-%d %H.%M.%S')
 
 ftp = FTP()
 
-f = csv.writer(open('FTPlisting'+datetime.now().strftime('%Y-%m-%d %H.%M.%S')+'.csv', 'w', encoding='utf-8'))
+f = csv.writer(open('FTPlisting_'+dt+'.csv', 'w', encoding='utf-8'))
 f.writerow(['file']+['filematch'])
 
-f2 = csv.writer(open('filematching'+datetime.now().strftime('%Y-%m-%d %H.%M.%S')+'.csv', 'w', encoding='utf-8'))
+f2 = csv.writer(open('fileMatching_'+dt+'.csv', 'w', encoding='utf-8'))
 f2.writerow(['newfile']+['localFileLocation']+['itemID']+['matchingfile']+['title'])
 
 # Complete server details below.

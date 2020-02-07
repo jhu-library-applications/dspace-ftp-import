@@ -8,7 +8,7 @@ import urllib3
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-f', '--file', help='collectionHandle of the collection to retreive. optional - if not provided, the script will ask for input')
+parser.add_argument('-f', '--file')
 args = parser.parse_args()
 
 if args.file:
@@ -47,7 +47,9 @@ status = requests.get(baseURL+'/rest/status', headers=header, cookies=cookies, v
 userFullName = status['fullname']
 print('authenticated')
 
-f = csv.writer(open('ingestedBitstreams'+datetime.now().strftime('%Y-%m-%d %H.%M.%S')+'.csv', 'w'))
+dt = datetime.now().strftime('%Y-%m-%d %H.%M.%S')
+
+f = csv.writer(open('ingestedBitstreams_'+dt+'.csv', 'w'))
 
 with open(filename) as bitstreamsCSV:
     bitstreamsCSV = csv.DictReader(bitstreamsCSV)
